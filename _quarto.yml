@@ -11,7 +11,7 @@ website:
         text: home
       - href: research.qmd
         text: research
-      - href: cv.pdf
+      - href: cv.qmd
         text: cv
       - href: teaching.qmd
         text: teaching
