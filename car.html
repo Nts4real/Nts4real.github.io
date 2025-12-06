@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Estimator - Neron Sifflore</title>
+    <style>
+        /* Ed Rubin minimal style */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+
+        /* Navigation - matching your main site */
+        nav {
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+            padding-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            font-weight: 500;
+            font-size: 18px;
+            color: #333;
+            text-decoration: none;
+            margin-right: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #555;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /* Main content */
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form styling - clean and minimal */
+        .form-container {
+            margin: 30px 0;
+            padding: 30px;
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d0;
+            border-radius: 3px;
+            font-size: 15px;
+            font-family: inherit;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+
+        select:disabled {
+            background-color: #f5f5f5;
+            color: #999;
+        }
+
+        button {
+            width: 100%;
+            background: #0066cc;
+            color: white;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 3px;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        button:hover:not(:disabled) {
+            background: #0052a3;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        /* Results - minimal styling */
+        .result-container {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .price-main {
+            font-size: 36px;
+            font-weight: 500;
+            color: #0066cc;
+            margin-bottom: 8px;
+        }
+
+        .price-range {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-box {
+            padding: 12px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-weight: 500;
+            color: #333;
+            text-transform: capitalize;
+        }
+
+        .note {
+            padding: 12px;
+            background: #fff9e6;
+            border: 1px solid #f0e68c;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                margin-top: 15px;
+                gap: 15px;
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .price-main {
+                font-size: 28px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">Neron Sifflore</a>
+        <ul class="nav-links">
+            <li><a href="index.html">home</a></li>
+            <li><a href="research.html">research</a></li>
+            <li><a href="cv.html">cv</a></li>
+            <li><a href="teaching.html">teaching</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Car Price Estimator</h1>
+        <p>A simple tool to estimate car values in the Seychelles market based on actual listing data.</p>
+        
+        <p style="font-size: 14px; color: #666;">
+            This estimator uses data from <span id="listingCount"></span> real vehicle listings to provide market-based valuations. The model accounts for make, model, year, mileage, condition, transmission type, and fuel type.
+        </p>
+
+        <div class="form-container">
+            <form id="carForm">
+                <div class="form-group">
+                    <label for="make">Make</label>
+                    <select id="make" name="make" required>
+                        <option value="">Select make...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <select id="model" name="model" required disabled>
+                        <option value="">Select model...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input type="number" id="year" name="year" placeholder="e.g., 2020" min="1990" max="2026" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mileage">Mileage (km)</label>
+                    <input type="number" id="mileage" name="mileage" placeholder="e.g., 45000" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="condition">Condition</label>
+                    <select id="condition" name="condition" required>
+                        <option value="excellent">Excellent</option>
+                        <option value="good" selected>Good</option>
+                        <option value="fair">Fair</option>
+                        <option value="poor">Poor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transmission">Transmission</label>
+                    <select id="transmission" name="transmission" required>
+                        <option value="automatic">Automatic</option>
+                        <option value="manual">Manual</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fuelType">Fuel Type</label>
+                    <select id="fuelType" name="fuelType" required>
+                        <option value="petrol">Petrol</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                </div>
+
+                <button type="submit" id="submitBtn">Get Estimate</button>
+            </form>
+        </div>
+
+        <div id="resultCard" class="result-container hidden"></div>
+
+        <h3>About this tool</h3>
+        <p>This car price estimator was developed as part of my work in applied economics and data analysis. The model uses hedonic pricing methods to estimate vehicle values based on their characteristics and comparable market listings.</p>
+        
+        <p>The estimation algorithm accounts for:</p>
+        <ul style="margin-left: 20px; margin-bottom: 15px; color: #555;">
+            <li>Vehicle depreciation (~10% per year)</li>
+            <li>Mileage adjustments</li>
+            <li>Condition multipliers</li>
+            <li>Transmission and fuel type premiums</li>
+            <li>Market comparables within the dataset</li>
+        </ul>
+
+        <p style="font-size: 14px; color: #666;"><em>Note: This is a statistical model based on limited data. Actual market prices may vary based on additional factors such as specific vehicle features, maintenance history, and local market conditions.</em></p>
+    </main>
+
+    <footer>
+        <p>© 2024 Neron Sifflore | <a href="index.html">Back to homepage</a></p>
+    </footer>
+
+    <script>
+        // Sample data - same as your original
+        const sampleListings = [
+            { make: "Toyota", model: "Fielder", year: 2015, mileage: 50000, price: 200000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Toyota", model: "Axio", year: 2015, mileage: 50000, price: 200000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Toyota", model: "Axio", year: 2012, mileage: 50000, price: 150000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "Juke", year: 2015, mileage: 50000, price: 210000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "Juke", year: 2018, mileage: 38500, price: 285000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "Note", year: 2015, mileage: 50000, price: 185000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Suzuki", model: "Swift", year: 2020, mileage: 50000, price: 165000, condition: "good", transmission: "manual", fuelType: "petrol" },
+            { make: "Suzuki", model: "Swift", year: 2010, mileage: 50000, price: 120000, condition: "good", transmission: "manual", fuelType: "petrol" },
+            { make: "Hyundai", model: "i10", year: 2015, mileage: 50000, price: 145000, condition: "good", transmission: "manual", fuelType: "petrol" },
+            { make: "Toyota", model: "Vitz", year: 2010, mileage: 50000, price: 120000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Toyota", model: "Vitz", year: 2015, mileage: 50000, price: 180000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Toyota", model: "Aqua", year: 2015, mileage: 50000, price: 210000, condition: "good", transmission: "automatic", fuelType: "hybrid" },
+            { make: "Honda", model: "Vezel", year: 2015, mileage: 50000, price: 260000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Mazda", model: "Demio", year: 2015, mileage: 50000, price: 175000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "March", year: 2015, mileage: 50000, price: 160000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Toyota", model: "Hilux Rocco", year: 2023, mileage: 16500, price: 675000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Honda", model: "Fit", year: 2017, mileage: 134000, price: 200000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "Qashqai", year: 2016, mileage: 50000, price: 150000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Chevrolet", model: "Captiva", year: 2008, mileage: 50000, price: 150000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Hyundai", model: "i10", year: 2020, mileage: 50000, price: 65000, condition: "good", transmission: "manual", fuelType: "petrol" },
+            { make: "Hyundai", model: "i20", year: 2020, mileage: 50000, price: 115000, condition: "good", transmission: "manual", fuelType: "petrol" },
+            { make: "Hyundai", model: "ix35", year: 2020, mileage: 50000, price: 150000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Nissan", model: "Xtrail", year: 2020, mileage: 91000, price: 210000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Kia", model: "Fronx", year: 2023, mileage: 32645, price: 330000, condition: "good", transmission: "automatic", fuelType: "hybrid" },
+            { make: "Honda", model: "Fit", year: 2017, mileage: 50000, price: 215000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Suzuki", model: "Swift", year: 2022, mileage: 50000, price: 220000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Hyundai", model: "i20", year: 2016, mileage: 98000, price: 180000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Honda", model: "Fit", year: 2018, mileage: 45000, price: 240000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Hyundai", model: "Atos Prime", year: 2005, mileage: 50000, price: 45000, condition: "good", transmission: "automatic", fuelType: "petrol" },
+            { make: "Kia", model: "Rio", year: 2020, mileage: 53000, price: 250000, condition: "good", transmission: "automatic", fuelType: "petrol" }
+        ];
+
+        // Initialize
+        document.getElementById('listingCount').textContent = sampleListings.length;
+
+        // Get unique makes
+        const makes = [...new Set(sampleListings.map(car => car.make))].sort();
+        const makeSelect = document.getElementById('make');
+        makes.forEach(make => {
+            const option = document.createElement('option');
+            option.value = make;
+            option.textContent = make;
+            makeSelect.appendChild(option);
+        });
+
+        // Update models when make changes
+        makeSelect.addEventListener('change', function() {
+            const modelSelect = document.getElementById('model');
+            modelSelect.innerHTML = '<option value="">Select model...</option>';
+            
+            if (this.value) {
+                const models = [...new Set(
+                    sampleListings
+                        .filter(car => car.make === this.value)
+                        .map(car => car.model)
+                )].sort();
+                
+                models.forEach(model => {
+                    const option = document.createElement('option');
+                    option.value = model;
+                    option.textContent = model;
+                    modelSelect.appendChild(option);
+                });
+                
+                modelSelect.disabled = false;
+            } else {
+                modelSelect.disabled = true;
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('carForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.textContent = 'Calculating...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                const formData = {
+                    make: document.getElementById('make').value,
+                    model: document.getElementById('model').value,
+                    year: parseInt(document.getElementById('year').value),
+                    mileage: parseInt(document.getElementById('mileage').value),
+                    condition: document.getElementById('condition').value,
+                    transmission: document.getElementById('transmission').value,
+                    fuelType: document.getElementById('fuelType').value
+                };
+                
+                const estimate = calculateEstimate(formData);
+                displayResults(estimate);
+                
+                submitBtn.textContent = 'Get Estimate';
+                submitBtn.disabled = false;
+            }, 800);
+        });
+
+        function calculateEstimate(formData) {
+            // Filter relevant listings
+            let relevantListings = sampleListings.filter(car => 
+                car.make === formData.make && 
+                car.model === formData.model &&
+                car.transmission === formData.transmission &&
+                car.fuelType === formData.fuelType
+            );
+
+            if (relevantListings.length === 0) {
+                relevantListings = sampleListings.filter(car => 
+                    car.make === formData.make && car.model === formData.model
+                );
+            }
+
+            if (relevantListings.length === 0) {
+                relevantListings = sampleListings.filter(car => car.make === formData.make);
+            }
+
+            if (relevantListings.length === 0) {
+                return {
+                    value: null,
+                    message: "Not enough data for this vehicle. Try a different make/model."
+                };
+            }
+
+            // Calculate base price
+            const avgPrice = relevantListings.reduce((sum, car) => sum + car.price, 0) / relevantListings.length;
+            
+            // Adjust for year (depreciation ~10% per year)
+            const currentYear = new Date().getFullYear();
+            const yearDiff = currentYear - formData.year;
+            const yearAdjustment = avgPrice * (yearDiff * 0.10);
+            
+            // Adjust for mileage
+            const avgMileage = relevantListings.reduce((sum, car) => sum + car.mileage, 0) / relevantListings.length;
+            const mileageDiff = formData.mileage - avgMileage;
+            const mileageAdjustment = mileageDiff * 0.12;
+            
+            // Adjust for condition
+            const conditionMultipliers = {
+                excellent: 1.1,
+                good: 1.0,
+                fair: 0.9,
+                poor: 0.75
+            };
+            
+            // Adjust for transmission
+            const transmissionAdjustment = formData.transmission === 'manual' ? -500 : 0;
+            
+            // Adjust for fuel type
+            const fuelTypeMultipliers = {
+                electric: 1.05,
+                hybrid: 1.03,
+                petrol: 1.0,
+                diesel: 1.02
+            };
+            
+            let estimatedValue = avgPrice - yearAdjustment - mileageAdjustment + transmissionAdjustment;
+            estimatedValue *= conditionMultipliers[formData.condition];
+            estimatedValue *= fuelTypeMultipliers[formData.fuelType];
+            estimatedValue = Math.max(1000, estimatedValue);
+            
+            const lowerBound = estimatedValue * 0.9;
+            const upperBound = estimatedValue * 1.1;
+            
+            return {
+                value: Math.round(estimatedValue),
+                range: {
+                    low: Math.round(lowerBound),
+                    high: Math.round(upperBound)
+                },
+                confidence: relevantListings.length >= 3 ? "high" : "medium",
+                comparables: relevantListings.length
+            };
+        }
+
+        function formatCurrency(amount) {
+            return 'SR ' + new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(amount);
+        }
+
+        function displayResults(estimate) {
+            const resultCard = document.getElementById('resultCard');
+            resultCard.classList.remove('hidden');
+            
+            if (estimate.value) {
+                resultCard.innerHTML = `
+                    <h3 class="result-title">Estimated Value</h3>
+                    <div class="price-main">${formatCurrency(estimate.value)}</div>
+                    <div class="price-range">Range: ${formatCurrency(estimate.range.low)} - ${formatCurrency(estimate.range.high)}</div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-label">Confidence Level</div>
+                            <div class="stat-value">${estimate.confidence}</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-label">Comparable Listings</div>
+                            <div class="stat-value">${estimate.comparables} vehicles</div>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <strong>Note:</strong> This is a statistical estimate based on comparable market listings. Actual prices may vary depending on specific vehicle features, condition, and local market dynamics.
+                    </div>
+                `;
+            } else {
+                resultCard.innerHTML = `
+                    <div style="text-align: center; color: #666;">
+                        <p>${estimate.message}</p>
+                    </div>
+                `;
+            }
+            
+            // Smooth scroll to results
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
