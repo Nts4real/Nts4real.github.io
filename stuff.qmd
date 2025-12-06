@@ -1,0 +1,52 @@
+---
+title: ""
+toc: false
+---
+
+Greetings, fellow nerds! Here are the tools I most commonly use...
+
+### Text editing
+
+- General scripting/coding: [VS Code](https://code.visualstudio.com/) but increasingly [NvChad](https://nvchad.com) on [ghostty](https://ghostty.org/)
+- LaTeX writing: [Overleaf](https://www.overleaf.com/) or [VS Code](https://code.visualstudio.com/) with [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+- Slides: Migrating to [Quarto](https://quarto.org/) from [xaringan](https://slides.yihui.org/xaringan/#1)
+
+### Terminal
+
+- [ghostty](https://ghostty.org/)
+- [Warp](https://www.warp.dev/)
+- [Oh My Zsh](https://ohmyz.sh/)
+- [radian](https://github.com/randy3k/radian)
+- [Neovim](https://neovim.io/) and [NvChad](https://nvchad.com/)
+- [doi2bib](https://doi2bib.readthedocs.io/en/latest/index.html)
+- [lf](https://github.com/gokcehan/lf)
+- Sometimes a little [tmux](https://github.com/tmux/tmux/)
+
+### Data work/analysis
+
+- [R](https://www.r-project.org/) in [VS Code](https://code.visualstudio.com/) with [radian](https://github.com/randy3k/radian)
+- [R](https://www.r-project.org/) in [NvChad](https://nvchad.com) with [radian](https://github.com/randy3k/radian) in [ghostty](https://ghostty.org/), [Warp](https://www.warp.dev/), or [Tabby](https://tabby.sh/)
+
+### Productivity
+
+- Note taking: [Obsidian](https://obsidian.md/)
+- Task management: [Things 3](https://culturedcode.com/things/) and [Github Projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects/learning-about-projects/about-projects)
+- Calendar: [Fantastical](https://flexibits.com/fantastical)
+- Calculator: [Numi](https://numi.app/)
+- Passwords: [Dashlane](https://www.dashlane.com/)
+- FTP: [Transmit](https://panic.com/transmit/)
+- Email: [Spark](https://sparkmailapp.com/)
+- Recipes: [Mela](https://mela.recipes/)
+
+### Computer ease
+
+- [Rectangle](https://rectangleapp.com/) on OSX and [gTile](https://github.com/gTile/gTile) on Linux.
+- [Alfred](https://www.alfredapp.com/)
+- [Notability](https://notability.com) and [PDF Expert](https://pdfexpert.com/)
+- [BetterDisplay](https://github.com/waydabber/BetterDisplay#readme)
+
+### Browser and extensions
+
+- Browser: [Arc](https://arcweb.co/) (and occasionally [Brave](https://brave.com/))
+- VPN: [ProtonVPN](https://protonvpn.com/)
+

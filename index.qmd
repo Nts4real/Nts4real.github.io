@@ -1,0 +1,53 @@
+---
+title: ""
+toc: false
+lightbox: true
+---
+
+
+:::: {.columns}
+
+::: {.column width="49%"}
+
+![](photos/ed-cropped-smaller.png)
+
+:::
+
+::: {.column width="5%"}
+<!-- Blank -->
+:::
+
+::: {.column width="46%"}
+
+I'm [Ed Rubin](bio.html), an assistant professor in the [Department of Economics](https://economics.uoregon.edu) at the [University of Oregon](https://www.uoregon.edu).
+
+### research
+
+I'm an environmental economist who researches how human behavior (individual and policy) affects social equity and the health of the natural world.
+
+As an empiricist, I tackle these issues with a toolbox that draws from econometrics, statistics, and data science.
+
+Examples from a few recent projects…
+<br>↳ [*unequal health impacts from glyphosate exposure*](https://www.pnas.org/doi/10.1073/pnas.2413013121)
+<br>↳ [*curiously missing data in air-quality monitors*](https://doi.org/10.1162/rest_a_01477)
+<br>↳ [*disparate wildfire smoke avoidance*](Papers/draft-smoke.pdf)
+<br>↳ [*a field experiment in customer-based gender bias*](https://www.journals.uchicago.edu/doi/abs/10.1086/733049)
+<br>↳ [*pitfalls of machine learning in a 2SLS framework*](https://doi.org/10.48550/arXiv.2505.13422)
+<br>↳ [*strategic location of coal-fueled power plants*](Papers/draft-plant-locations.pdf)
+
+### me
+
+*Passions:* [the](Gallery/20250101-IMG_4248.jpg){.lightbox} [ou](Gallery/20250215-IMG_5072){.lightbox}t[do](Gallery/20250827-IMG_0238.jpg){.lightbox}o[rs](Gallery/20240629-IMG_8522_jpg.jpg){.lightbox}, [bikes](Gallery/20241221-IMG_3497_jpg.jpg){.lightbox}, [good](Gallery/20241227-IMG_4034_jpg.jpg){.lightbox} [food](Gallery/20251102-IMG_0950.jpg){.lightbox}/[coffee](Gallery/20250731-IMG_9226.jpg){.lightbox}/[drink](Gallery/20250307-IMG_5581.jpg){.lightbox}[s](Gallery/20250328-IMG_6463.jpg){.lightbox}, [road](Gallery/20250628-IMG_7806.jpg){.lightbox} [trips](Gallery/20250628-IMG_7797.jpg){.lightbox} [beauty](Gallery/20250629-IMG_7900.jpg){.lightbox}/[photography](photos.html), data, and (most of all) [loving](Gallery/20240806-IMG_0409_jpg.jpg){.lightbox} [people](Gallery/20250726-IMG_9131.jpg){.lightbox}.
+
+### more
+
+A few other professional items… I
+<br>↳ *started [TWEEDS](https://tweeds.io) with [friends](https://tweeds.io/about/)*,
+<br>↳ *help run [OSWEET](https://edrub.in/osweet.html)*,
+<br>↳ *co-wrote a textbook,*<br>[↳]{style="color: white;"} *[Data Science and Public Policy](https://link.springer.com/book/10.1007/978-3-030-71352-2)*.
+
+Please look around or [contact me](contact.html).
+
+:::
+
+::::
