@@ -19,21 +19,15 @@ lightbox: true
 
 ::: {.column width="46%"}
 
-I'm [Ed Rubin](bio.html), an assistant professor in the [Department of Economics](https://economics.uoregon.edu) at the [University of Oregon](https://www.uoregon.edu).
-
 ### research
 
-I'm an environmental economist who researches how human behavior (individual and policy) affects social equity and the health of the natural world.
-
-As an empiricist, I tackle these issues with a toolbox that draws from econometrics, statistics, and data science.
+I'm an economist with an interest in labour, development, public, and tourism economics. My work mostly involves exploiting quasi-experiments to uncover the causal effects of persuasion and long-term impacts of early childhood human capital shocks. 
 
 Examples from a few recent projects…
-<br>↳ [*unequal health impacts from glyphosate exposure*](https://www.pnas.org/doi/10.1073/pnas.2413013121)
-<br>↳ [*curiously missing data in air-quality monitors*](https://doi.org/10.1162/rest_a_01477)
-<br>↳ [*disparate wildfire smoke avoidance*](Papers/draft-smoke.pdf)
-<br>↳ [*a field experiment in customer-based gender bias*](https://www.journals.uchicago.edu/doi/abs/10.1086/733049)
-<br>↳ [*pitfalls of machine learning in a 2SLS framework*](https://doi.org/10.48550/arXiv.2505.13422)
-<br>↳ [*strategic location of coal-fueled power plants*](Papers/draft-plant-locations.pdf)
+<br>↳ [*the labour and schooling outcomes of an educational expansion program*](https://www.pnas.org/doi/10.1073/pnas.2413013121)
+<br>↳ [*the effects of persuasion on fertility outcomes*](https://doi.org/10.1162/rest_a_01477)
+<br>↳ [*the effects of free school meals on enrolment and grade progression*](Papers/draft-smoke.pdf)
+<br>↳ [*understanding the determinants of tourist arrivals in Seychelles*](https://www.journals.uchicago.edu/doi/abs/10.1086/733049)
 
 ### me
 
