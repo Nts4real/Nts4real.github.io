@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Neron Sifflore — Economist</title>
+  <meta name="description" content="Neron Sifflore — economist working in labour, development, public, and tourism economics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<script>document.body.classList.add('js-loaded');</script>
+
+<div class="page">
+
+  <!-- ============== MASTHEAD ============== -->
+  <header class="mast reveal r1">
+    <div class="crest">EST.&nbsp;2024</div>
+    <div>
+      <h1>Neron <em>Sifflore</em></h1>
+    </div>
+    <div class="meta">
+      <div><b>Economist</b></div>
+      <div>Mahé · Seychelles</div>
+    </div>
+  </header>
+
+  <!-- ============== NAV ============== -->
+  <nav class="nav reveal r2">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="what-i-do.html">What I do</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="cv.pdf">CV</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://github.com/Nts4real" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <!-- ============== INTRO ============== -->
+  <section class="intro reveal r3">
+    <p class="lede">
+      An economist with an interest in <em>labour</em>, <em>development</em>, <em>public</em>, and <em>tourism</em> economics — using quasi-experimental methods to study causal effects.
+    </p>
+    <p>
+      My research primarily examines the long-run human capital effects of early childhood interventions. More recently, I have begun exploring the behavioural effects of persuasive messages and the drivers of tourism demand.
+    </p>
+  </section>
+
+  <!-- ============== FEATURED FIGURE ============== -->
+  <div class="chart-question reveal r4">
+    <span class="kicker">A question I'm often asked</span>
+    <h2>What sparked my interest in <em>economics</em>?</h2>
+    <span class="subline">Causal evidence</span>
+  </div>
+
+  <section class="figures reveal r4 single">
+    <div class="figure-card wide">
+      <div class="chart-wrap"><canvas id="trajectoryChart"></canvas></div>
+      <div class="caption">
+        <span class="fig-num">Fig. 01 · A personal counterfactual</span>
+        At twenty, I picked Economics as my degree. The dotted line is the version of me who picked <em>Computer Science</em> instead — the counterfactual, since both were among my A-Level subjects. Hover any year for what was happening.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== RECENT WORK ============== -->
+  <div class="sec-label reveal r5">
+    <span class="num">I.</span>
+    <h2>Recent research</h2>
+    <span class="hint">Selected papers</span>
+  </div>
+
+  <ul class="tagged-list">
+    <li><em>Educational and labour market effects of a schooling expansion programme</em> — <a href="research.html">read more</a></li>
+    <li><em>Effects of persuasion on fertility outcomes</em> — <a href="research.html">read more</a></li>
+    <li><em>Impacts of free school meals on school completion, enrolment, and grade progression</em> — <a href="research.html">read more</a></li>
+    <li><em>Understanding the determinants of tourist arrivals in Seychelles</em> — <a href="research.html">read more</a></li>
+  </ul>
+
+  <!-- ============== OTHER PROJECTS ============== -->
+  <div class="sec-label reveal r5">
+    <span class="num">II.</span>
+    <h2>Other projects</h2>
+    <span class="hint">Applied work</span>
+  </div>
+
+  <ul class="tagged-list">
+    <li>Built a <a href="https://nts4real.github.io/car.html">car value estimator</a> for the local market</li>
+    <li>Developed the <a href="https://nts4real.github.io/osweet.html">Seychelles Statistics Portal</a></li>
+    <li>Built a land value estimator</li>
+  </ul>
+
+  <!-- ============== COLOPHON ============== -->
+  <footer class="colophon">
+    <span>© Neron Sifflore · Mahé, Seychelles</span>
+    <span class="right"><a href="contact.html">Contact</a> · <a href="https://github.com/Nts4real">GitHub</a></span>
+  </footer>
+
+</div>
+
+<script>
+/* ============== TRAJECTORY CHART ============== */
+const PAPER = "#F4EFE6";
+const INK = "#0E1116";
+const INK_2 = "#2A2F38";
+const INK_3 = "#5A6068";
+const ACCENT = "#B8470F";
+const NAVY = "#0E2A47";
+const MOSS = "#3D5A3F";
+const GRID = "rgba(14,17,22,0.06)";
+
+const TREATMENT_AGE = 20;
+
+// Each entry: [age, value, milestone (optional)]
+// Y-axis is "interest in economics" — a subjective scale.
+// Pre-treatment (14–18): shared baseline through secondary school and A-Levels.
+// Age 19: pandemic gap year — no studying, both lines stay flat.
+// At age 20 (treatment): committed to Economics as the university major;
+// counterfactual commits to Computer Science instead.
+// Post-treatment: Economics keeps rising; CS counterfactual drifts down.
+const ECON_PATH = [
+  [14, 8,  "Started secondary school"],
+  [15, 12, null],
+  [16, 18, "IGCSEs"],
+  [17, 28, null],
+  [18, 42, "A-Levels finish (Best Learner Award in Economics)"],
+  [19, 42, "Gap year — pandemic"],
+  [20, 72, "Chose Economics as major — BSc, University of Nottingham"],
+  [21, 84, "Dean's Excellence Scholarship · School Prize"],
+  [22, 96, "First Class Hons. Best Undergraduate Achievement"],
+  [23, 102, "Joined Ministry of Finance as Economist"],
+  [24, 108, null],
+  [25, 112, null]
+];
+
+const CS_PATH = [
+  [14, 8,  "Started secondary school"],
+  [15, 12, null],
+  [16, 18, "IGCSEs"],
+  [17, 28, null],
+  [18, 42, "A-Levels finish"],
+  [19, 42, "Gap year — pandemic"],
+  [20, 40, "Counterfactual: chose Computer Science as major"],
+  [21, 35, "BSc Computer Science"],
+  [22, 28, null],
+  [23, 22, "Junior Programmer"],
+  [24, 17, null],
+  [25, 13, null]
+];
+
+const ages = ECON_PATH.map(d => d[0]);
+
+const trajCtx = document.getElementById("trajectoryChart").getContext("2d");
+new Chart(trajCtx, {
+  type: "line",
+  data: {
+    labels: ages,
+    datasets: [
+      {
+        label: "Economics (actual)",
+        data: ECON_PATH.map(d => d[1]),
+        borderColor: ACCENT,
+        backgroundColor: "rgba(184, 71, 15, 0.06)",
+        borderWidth: 2.2,
+        tension: 0.32,
+        pointRadius: (ctx) => {
+          const milestone = ECON_PATH[ctx.dataIndex] && ECON_PATH[ctx.dataIndex][2];
+          return milestone ? 5 : 2.5;
+        },
+        pointHoverRadius: 7,
+        pointBackgroundColor: (ctx) => {
+          const milestone = ECON_PATH[ctx.dataIndex] && ECON_PATH[ctx.dataIndex][2];
+          return milestone ? ACCENT : INK;
+        },
+        pointBorderColor: (ctx) => {
+          const milestone = ECON_PATH[ctx.dataIndex] && ECON_PATH[ctx.dataIndex][2];
+          return milestone ? ACCENT : INK;
+        },
+        fill: false,
+        order: 1
+      },
+      {
+        label: "Computer Science (counterfactual)",
+        data: CS_PATH.map(d => d[1]),
+        borderColor: INK_3,
+        backgroundColor: "rgba(90, 96, 104, 0.04)",
+        borderWidth: 1.6,
+        borderDash: [5, 4],
+        tension: 0.32,
+        pointRadius: (ctx) => {
+          const milestone = CS_PATH[ctx.dataIndex] && CS_PATH[ctx.dataIndex][2];
+          return milestone ? 4 : 2;
+        },
+        pointHoverRadius: 6,
+        pointBackgroundColor: PAPER,
+        pointBorderColor: INK_3,
+        pointBorderWidth: 1.4,
+        fill: false,
+        order: 2
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: {
+        position: "top",
+        align: "start",
+        labels: {
+          color: INK_2,
+          font: { family: "Inter Tight", size: 11, weight: "500" },
+          boxWidth: 16, boxHeight: 2, padding: 16,
+          usePointStyle: false
+        }
+      },
+      tooltip: {
+        backgroundColor: INK,
+        titleColor: PAPER,
+        titleFont: { family: "Fraunces", size: 13, weight: "600" },
+        bodyColor: PAPER,
+        bodyFont: { family: "Inter Tight", size: 11 },
+        padding: 12,
+        cornerRadius: 0,
+        borderColor: ACCENT,
+        borderWidth: 1,
+        displayColors: true,
+        boxPadding: 4,
+        callbacks: {
+          title: (items) => "Age " + items[0].label,
+          label: (ctx) => {
+            const path = ctx.datasetIndex === 0 ? ECON_PATH : CS_PATH;
+            const m = path[ctx.dataIndex] && path[ctx.dataIndex][2];
+            const lbl = ctx.dataset.label;
+            return m ? `${lbl}: ${m}` : `${lbl}`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "Age (years)", color: INK_2, font: { family: "Inter Tight", size: 10, weight: "500" }, padding: { top: 8 } },
+        grid: { color: GRID, drawTicks: false },
+        ticks: { color: INK_2, font: { family: "JetBrains Mono", size: 10 }, padding: 6 },
+        border: { color: INK }
+      },
+      y: {
+        title: { display: true, text: "Interest in economics", color: INK_2, font: { family: "Inter Tight", size: 10, weight: "500" }, padding: { bottom: 8 } },
+        grid: { color: GRID, drawTicks: false },
+        ticks: { color: INK_2, font: { family: "JetBrains Mono", size: 9 }, padding: 6, display: false },
+        border: { display: false },
+        min: 0
+      }
+    }
+  },
+  plugins: [{
+    id: "treatmentLine",
+    beforeDatasetsDraw(chart) {
+      const { ctx, chartArea, scales } = chart;
+      const idx = ages.indexOf(TREATMENT_AGE);
+      if (idx < 0) return;
+      const x = scales.x.getPixelForValue(idx);
+      ctx.save();
+      ctx.strokeStyle = ACCENT;
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(x, chartArea.top);
+      ctx.lineTo(x, chartArea.bottom);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = ACCENT;
+      ctx.font = "italic 500 10px 'Fraunces', serif";
+      ctx.textAlign = "left";
+      ctx.fillText("20 — chose Economics", x + 6, chartArea.top + 14);
+      ctx.fillText("as major (treatment)", x + 6, chartArea.top + 27);
+      ctx.restore();
+    }
+  }]
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Neron Sifflore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<script>document.body.classList.add('js-loaded');</script>
+
+<div class="page">
+
+  <!-- ============== MASTHEAD ============== -->
+  <header class="mast reveal r1">
+    <div class="crest">№&nbsp;02&nbsp;·&nbsp;PROJECTS</div>
+    <div>
+      <h1>Neron <em>Sifflore</em></h1>
+    </div>
+    <div class="meta">
+      <div><b>Economist</b></div>
+      <div>Mahé · Seychelles</div>
+    </div>
+  </header>
+
+  <!-- ============== NAV ============== -->
+  <nav class="nav reveal r2">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="what-i-do.html">What I do</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="cv.pdf">CV</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://github.com/Nts4real" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <!-- ============== INTRO ============== -->
+  <section class="intro reveal r3">
+    <p class="lede">
+      Applied tools and data products — combining <em>economics</em>, <em>data science</em>, and <em>local context</em>.
+    </p>
+  </section>
+
+  <!-- ============== PROJECTS ============== -->
+  <div class="sec-label reveal r4">
+    <span class="num">I.</span>
+    <h2>Tools &amp; estimators</h2>
+  </div>
+
+  <div class="project">
+    <div class="project-meta">
+      <span class="label">Tool</span>
+      <span>2024</span><br>
+      <span>Hedonic pricing</span><br>
+      <span>R · Web</span>
+    </div>
+    <div>
+      <h3><a href="https://nts4real.github.io/car.html">Car price estimator</a></h3>
+      <p>
+        A hedonic pricing model for the Seychelles vehicle market. The tool uses regression analysis on actual car listing data from Facebook to predict vehicle values based on characteristics including make, model, age, mileage, and condition. It allows anyone to estimate the market price of specific vehicles.
+      </p>
+      <div class="project-figure">
+        <div class="chart-wrap"><canvas id="carChart"></canvas></div>
+        <div class="fig-caption">
+          <span class="fig-num">Fig. 01 · Sample data</span>
+          Listed price against vehicle age for a sample of <span id="carCount">22</span> Seychelles listings, coloured by brand. Hover any point for details.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-meta">
+      <span class="label">Portal</span>
+      <span>2024</span><br>
+      <span>Public data infrastructure</span><br>
+      <span>Web</span>
+    </div>
+    <div>
+      <h3><a href="https://nts4real.github.io/osweet.html">Seychelles statistics portal</a></h3>
+      <p>
+        A public-facing portal consolidating economic and demographic statistics for Seychelles, designed to make official data more accessible and useful for analysts, journalists, and the general public.
+      </p>
+    </div>
+  </div>
+
+  <div class="project">
+    <div class="project-meta">
+      <span class="label">Tool</span>
+      <span>2025</span><br>
+      <span>Hedonic pricing</span><br>
+      <span>In development</span>
+    </div>
+    <div>
+      <h3>Land value estimator</h3>
+      <p>
+        A companion tool to the car price estimator, focused on the Seychelles property and land market. Currently in development.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============== COLOPHON ============== -->
+  <footer class="colophon">
+    <span>© Neron Sifflore · Mahé, Seychelles</span>
+    <span class="right"><a href="contact.html">Contact</a> · <a href="https://github.com/Nts4real">GitHub</a></span>
+  </footer>
+
+</div>
+
+<script>
+/* ============== CAR PRICE ESTIMATOR — SAMPLE DATA ============== */
+const PAPER = "#F4EFE6";
+const INK = "#0E1116";
+const INK_2 = "#2A2F38";
+const INK_3 = "#5A6068";
+const ACCENT = "#B8470F";
+const GRID = "rgba(14,17,22,0.06)";
+
+// Brand palette - using the editorial colour family
+const BRAND_COLOURS = {
+  hyundai: "#0E2A47",   // navy
+  honda:   "#B8470F",   // sienna
+  kia:     "#3D5A3F",   // moss
+  toyota:  "#A47E3B",   // gold
+  ford:    "#7A2A0A",   // deep sienna
+  suzuki:  "#1F3864",   // navy 2
+  sirion:  "#5A6068",   // ink-3
+};
+
+const CARS = [
+  {name:"honda vezel",brand:"honda",year:2015,age:11,price:200000,mileage:null,transmission:"auto"},
+  {name:"hyundai i10",brand:"hyundai",year:2013,age:13,price:125000,mileage:null,transmission:"auto"},
+  {name:"ford figo",brand:"ford",year:2017,age:9,price:185000,mileage:69000,transmission:"auto"},
+  {name:"hyundai accent",brand:"hyundai",year:2013,age:13,price:160000,mileage:157000,transmission:"unknown"},
+  {name:"kia picanto",brand:"kia",year:2008,age:18,price:55000,mileage:118000,transmission:"manual"},
+  {name:"hyundai eon",brand:"hyundai",year:2014,age:12,price:90000,mileage:119000,transmission:"manual"},
+  {name:"kia rio hatchback",brand:"kia",year:2017,age:9,price:175000,mileage:85000,transmission:"manual"},
+  {name:"sirion",brand:"sirion",year:2008,age:18,price:100000,mileage:168300,transmission:"auto"},
+  {name:"hyundai i10",brand:"hyundai",year:2011,age:15,price:125000,mileage:null,transmission:"manual"},
+  {name:"hyundai i20 active",brand:"hyundai",year:2017,age:9,price:235000,mileage:68000,transmission:"auto"},
+  {name:"hyundai i20",brand:"hyundai",year:2013,age:13,price:155000,mileage:null,transmission:"manual"},
+  {name:"hyundai grand i10",brand:"hyundai",year:2018,age:8,price:180000,mileage:null,transmission:"auto"},
+  {name:"toyota rav 4",brand:"toyota",year:2015,age:11,price:330000,mileage:null,transmission:"auto"},
+  {name:"honda brio",brand:"honda",year:2012,age:14,price:100000,mileage:null,transmission:"manual"},
+  {name:"kia picanto",brand:"kia",year:2014,age:12,price:140000,mileage:null,transmission:"manual"},
+  {name:"hyundai i20",brand:"hyundai",year:2010,age:16,price:120000,mileage:null,transmission:"unknown"},
+  {name:"suzuki swift rs",brand:"suzuki",year:2017,age:9,price:245000,mileage:null,transmission:"auto"},
+  {name:"kia picanto",brand:"kia",year:2015,age:11,price:125000,mileage:null,transmission:"manual"},
+  {name:"honda jazz vtec",brand:"honda",year:2017,age:9,price:180000,mileage:60000,transmission:"unknown"},
+  {name:"toyota urban cruiser",brand:"toyota",year:2022,age:4,price:315000,mileage:34000,transmission:"auto"},
+  {name:"hyundai creta",brand:"hyundai",year:2016,age:10,price:240000,mileage:114000,transmission:"manual"},
+  {name:"honda brio",brand:"honda",year:2013,age:13,price:100000,mileage:113000,transmission:"auto"},
+];
+
+// Group by brand for separate datasets (allows legend toggling)
+const brands = [...new Set(CARS.map(c => c.brand))];
+const datasets = brands.map(b => ({
+  label: b.charAt(0).toUpperCase() + b.slice(1),
+  data: CARS.filter(c => c.brand === b).map(c => ({
+    x: c.age, y: c.price,
+    raw: c
+  })),
+  backgroundColor: BRAND_COLOURS[b] || INK_3,
+  borderColor: BRAND_COLOURS[b] || INK_3,
+  pointRadius: 5,
+  pointHoverRadius: 8,
+  pointBorderColor: PAPER,
+  pointBorderWidth: 1.5,
+}));
+
+const ctx = document.getElementById("carChart").getContext("2d");
+new Chart(ctx, {
+  type: "scatter",
+  data: { datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: "nearest", intersect: true },
+    plugins: {
+      legend: {
+        position: "top",
+        align: "start",
+        labels: {
+          color: INK_2,
+          font: { family: "Inter Tight", size: 10, weight: "500" },
+          boxWidth: 10, boxHeight: 10, padding: 12,
+          usePointStyle: true, pointStyle: "circle"
+        }
+      },
+      tooltip: {
+        backgroundColor: INK,
+        titleColor: PAPER,
+        titleFont: { family: "Fraunces", size: 13, weight: "600" },
+        bodyColor: PAPER,
+        bodyFont: { family: "Inter Tight", size: 11 },
+        padding: 10,
+        cornerRadius: 0,
+        borderColor: ACCENT,
+        borderWidth: 1,
+        displayColors: false,
+        callbacks: {
+          title: (items) => items[0].raw.raw.name.replace(/^\w/, c => c.toUpperCase()),
+          label: (ctx) => {
+            const c = ctx.raw.raw;
+            const lines = [
+              `Year: ${c.year} · Age ${c.age} yrs`,
+              `Price: SCR ${c.price.toLocaleString()}`,
+            ];
+            if (c.mileage) lines.push(`Mileage: ${c.mileage.toLocaleString()} km`);
+            if (c.transmission && c.transmission !== "unknown") lines.push(`Transmission: ${c.transmission}`);
+            return lines;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: "linear",
+        title: { display: true, text: "Vehicle age (years)", color: INK_2, font: { family: "Inter Tight", size: 10, weight: "500" }, padding: { top: 8 } },
+        grid: { color: GRID, drawTicks: false },
+        ticks: { color: INK_2, font: { family: "JetBrains Mono", size: 10 }, padding: 6, stepSize: 2 },
+        border: { color: INK },
+        min: 0, max: 20,
+      },
+      y: {
+        title: { display: true, text: "Listed price (SCR)", color: INK_2, font: { family: "Inter Tight", size: 10, weight: "500" }, padding: { bottom: 8 } },
+        grid: { color: GRID, drawTicks: false },
+        ticks: {
+          color: INK_2, font: { family: "JetBrains Mono", size: 10 }, padding: 6,
+          callback: (v) => (v / 1000) + "k"
+        },
+        border: { display: false },
+        min: 0, max: 350000,
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
